@@ -2,6 +2,7 @@
 
 FILE=""
 SEP="="
+CLEAR=false
 P=0
 N=0
 T=0
@@ -11,6 +12,7 @@ while [[ "$#" -gt 0 ]]; do
     if [[ "$1" =~ ^- ]]; then
       case $1 in
           -s|--sep) SEP="$2"; shift;;
+          -c|--clear) CLEAR=true; shift;;
           (*) echo "Unknown parameter passed: $1"; exit 1;;
       esac
     else
@@ -40,6 +42,8 @@ while true; do
     echo $question
     read
     echo $answer
+    echo "Y/N?"
     read user_ans
     if [[ $user_ans == [yY] ]]; then ((P++)) elif [[ $user_ans == [Nn] ]]; then ((N++)) fi; ((T++))
+    if [[ $CLEAR == true ]]; then clear; fi;
 done
